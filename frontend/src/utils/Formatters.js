@@ -15,7 +15,34 @@ export class Formatter {
         return slug.split('-').join(' ');
     }
 
-    static formatDate(date) {
-        return new Date(date).toLocaleDateString();
+    static formatDate(inputDate) {
+        const date = new Date(inputDate);
+
+        // Lấy ngày, tháng, năm
+        const day = date.getDate();
+        const month = date.getMonth() + 1; // Tháng bắt đầu từ 0
+        const year = date.getFullYear();
+
+        // Lấy giờ, phút, giây
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const seconds = date.getSeconds();
+
+        // Định dạng ngày tháng
+        const formattedDate = [
+            (day < 10 ? '0' : '') + day,
+            (month < 10 ? '0' : '') + month,
+            year
+        ].join('/');
+
+        // Định dạng giờ phút giây
+        const formattedTime = [
+            (hours < 10 ? '0' : '') + hours,
+            (minutes < 10 ? '0' : '') + minutes,
+            (seconds < 10 ? '0' : '') + seconds
+        ].join(':');
+
+        // Trả về mảng [date, time]
+        return [formattedDate, formattedTime];
     };
 }

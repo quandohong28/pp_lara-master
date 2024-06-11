@@ -18,8 +18,8 @@ import { Button, Input, Modal, Pagination, Table, Tag } from 'antd';
 import { React, useEffect, useState } from 'react';
 import ApiService from '../../../services/ApiService';
 
-export default function AdminCourse() {
-    const title = 'Khoá Học (16)';
+export default function AdminFile() {
+    const title = 'Bài viết';
 
     const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -87,8 +87,8 @@ export default function AdminCourse() {
                 <div
                     className='col-span-3 hover:bg-gray-100 flex flex-col items-center justify-center hover:cursor-pointer border px-3 h-36 rounded-lg w-full text-center'
                 >
-                    <div className='text-blue-500 text-3xl mb-3'><PlusCircleOutlined /></div>
-                    <div className='text-sm font-bold '>Thêm mới</div>
+                    <div className='text-blue-500 text-3xl mb-3'><CloudUploadOutlined /></div>
+                    <div className='text-sm font-bold '>Tải lên</div>
                 </div>
                 <div
                     className='col-span-3 hover:bg-gray-100 hover:cursor-pointer flex flex-col items-center justify-center border px-3 h-36 rounded-lg w-full text-center'

@@ -48,7 +48,21 @@ export default function Dashboard() {
 				<div className='mb-10'>
 					<h1 className='font-bold text-xl'>Bảng điều khiển</h1>
 				</div>
-				<div className='text-right mb-3'>
+
+				<div className="flex justify-between item-center gap-5 mb-3">
+					{overviewData.map((item) => (
+						<div
+							onClick={() => naviagte(item.to)}
+							key={item.key}
+							className='hover:bg-gray-100 hover:cursor-pointer border px-3 py-5 h-36 rounded-lg w-full text-center'
+						>
+							<div className='text-blue-500 text-3xl mb-3'>{item.icon}</div>
+							<div className='font-bold text-xl'>{item.value}</div>
+							<div className='text-sm'>{item.subtitle}</div>
+						</div>
+					))}
+				</div>
+				<div className='text-right'>
 					<Select
 						defaultValue="this_month"
 						style={{
@@ -69,19 +83,6 @@ export default function Dashboard() {
 							},
 						]}
 					/>
-				</div>
-				<div className="flex justify-between item-center gap-5">
-					{overviewData.map((item) => (
-						<div
-							onClick={() => naviagte(item.to)}
-							key={item.key}
-							className='hover:bg-gray-100 hover:cursor-pointer border px-3 py-5 rounded-lg w-full text-center'
-						>
-							<div className='text-blue-500 text-3xl mb-3'>{item.icon}</div>
-							<div className='font-bold text-xl'>{item.value}</div>
-							<div className='text-sm'>{item.subtitle}</div>
-						</div>
-					))}
 				</div>
 			</main>
 		</div>

@@ -1,31 +1,21 @@
 import {
     BookOutlined,
+    ControlOutlined,
     DashboardOutlined,
-    UserOutlined,
-    SwapOutlined,
-    SignatureOutlined,
-    ProductOutlined,
     FileOutlined,
     NotificationOutlined,
-    ControlOutlined
+    ProductOutlined,
+    SignatureOutlined,
+    TeamOutlined,
+    MoneyCollectOutlined
 } from '@ant-design/icons';
-import { Button, Menu } from 'antd';
-import React, { useState } from 'react';
+import { Menu } from 'antd';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Sidebar = () => {
-    const [collapse, setCollapse] = useState(false);
+const Sidebar = ({ isCollapsed }) => {
 
     const items = [
-        {
-            key: 'swap',
-            label: 'Thu nhỏ',
-            icon: <SwapOutlined />,
-            onClick: () => setCollapse(!collapse),
-        },
-        {
-            type: 'divider'
-        },
         {
             key: 'dashboard',
             label: <Link to="/admin/dashboard">Bảng điều khiển</Link>,
@@ -34,7 +24,7 @@ const Sidebar = () => {
         {
             key: 'user',
             label: <Link to="/admin/user">Tài khoản</Link>,
-            icon: <UserOutlined />
+            icon: <TeamOutlined />
         },
         {
             key: 'category',
@@ -47,16 +37,21 @@ const Sidebar = () => {
             icon: <BookOutlined />
         },
         {
-            key: 'blog',
-            label: <Link to="/admin/blog">Bài viết</Link>,
+            key: 'post',
+            label: <Link to="/admin/post">Bài viết</Link>,
             icon: <SignatureOutlined />
+        },
+        {
+            key: 'invoice',
+            label: <Link to="/admin/invoice">Hoá đơn</Link>,
+            icon: <MoneyCollectOutlined />
         },
         {
             type: 'divider'
         },
         {
-            key: 'notification',
-            label: <Link to="/admin/notification">Thông báo</Link>,
+            key: 'news',
+            label: <Link to="/admin/news">Tin tức</Link>,
             icon: <NotificationOutlined />
         },
         {
@@ -66,7 +61,7 @@ const Sidebar = () => {
         },
         {
             key: 'other',
-            label: <Link to="/admin/other">Tuỳ chỉnh</Link>,
+            label: <Link to="/admin/custom">Tuỳ chỉnh</Link>,
             icon: <ControlOutlined />
         },
     ];
@@ -84,7 +79,7 @@ const Sidebar = () => {
                 mode="inline"
                 items={items}
                 className='pt-10 h-full px-4'
-                inlineCollapsed={collapse}
+                inlineCollapsed={isCollapsed}
             />
         </div>
 

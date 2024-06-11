@@ -3,6 +3,7 @@ import Client from './components/layouts/Client';
 import Admin from './components/layouts/Admin';
 import Auth from './components/layouts/Auth';
 import Learning from './components/layouts/Learning';
+import { AnimationRoutes } from 'zmp-ui';
 
 function App() {
 

@@ -14,7 +14,7 @@ export default function NotFound() {
                     Không tìm thấy trang
                 </p>
                 <p className="mb-4 text-gray-500">
-                    Không tìm thấy trang yêu cầu, vui lòng kiểm tra lại đường dẫn, Đường dẫn hiện tại: <span className="font-medium">/404</span>
+                    Không tìm thấy trang yêu cầu, vui lòng kiểm tra lại đường dẫn, Đường dẫn hiện tại: <span className="font-medium">{location.pathname}</span>
                 </p>
                 <div className="flex justify-center item-center gap-3">
                     <Button onClick={() => navigate(-1)} className='font-semibold text-sm' icon={<LeftOutlined />} >Quay lại</Button>

@@ -1,15 +1,18 @@
-import { HomeOutlined } from '@ant-design/icons'
+import { DesktopOutlined, HomeOutlined } from '@ant-design/icons'
 import { Breadcrumb, FloatButton } from 'antd'
-import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import AdminRoute from '../../routes/AdminRoute'
 import Footer from '../partials/admin/Footer'
 import Header from '../partials/admin/Header'
 import Sidebar from '../partials/admin/Sidebar'
 
 export default function Admin() {
+    const navigate = useNavigate()
     const location = useLocation()
-    console.log(location);
+
+    const [isCollapsed, setIsCollapsed] = useState(false)
+
 
     const breadcrumbItems = [
         {
@@ -21,15 +24,19 @@ export default function Admin() {
         title: <Link to={location.pathname}>{location.pathname.split('/').pop()}</Link>,
     })
 
+    const handleCollapsed = () => {
+        setIsCollapsed(!isCollapsed)
+    }
+
     return (
         <>
             <header>
-                <Header />
+                <Header onHandleCollapsed={handleCollapsed} />
             </header>
             <hr />
             <div className='flex'>
                 <aside>
-                    <Sidebar />
+                    <Sidebar isCollapsed={isCollapsed} />
                 </aside>
                 <main className='px-16 py-5 w-full min-h-screen'>
                     <Breadcrumb
@@ -37,7 +44,10 @@ export default function Admin() {
                         className='mb-10'
                     />
                     <AdminRoute />
-                    <FloatButton.BackTop visibilityHeight={0} tooltip="Lên đầu trang" />
+                    <FloatButton.Group>
+                        <FloatButton onClick={() => navigate('/', { replace: true })} visibilityHeight={0} icon={<DesktopOutlined />} tooltip="Truy cập trang người dùng" />
+                        <FloatButton.BackTop visibilityHeight={0} tooltip="Lên đầu trang" />
+                    </FloatButton.Group>
                 </main>
             </div>
             <footer>
