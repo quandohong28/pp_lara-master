@@ -1,5 +1,9 @@
-import { InfoCircleOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { Button, Table } from 'antd';
+import {
+    CopyOutlined,
+    UserOutlined,
+    DeleteOutlined, EditOutlined, FileExcelOutlined, FilePdfOutlined, PlusCircleOutlined, PrinterOutlined, SearchOutlined
+} from '@ant-design/icons';
+import { Button, Input, Modal, Pagination, Table, Tag } from 'antd';
 import { React, useEffect, useState } from 'react';
 import ApiService from '../../../services/ApiService';
 
@@ -33,8 +37,11 @@ export default function AdminUser() {
             key: 'name',
             render: (text, record) => (
                 <div className='flex gap-3 items-center justify-start'>
-                    <img className='w-[32px] h-[32px] rounded-lg' src={record.avatar} />
-                    <span className='font-bold'>{record.name}</span>
+                    <img className='w-[44px] h-[44px] rounded-full' src={record.avatar} />
+                    <div className='font-bold'>
+                        <div className='mb-1 hover:cursor-pointer text-blue-700' onClick={() => setDetailOpenModal(true)}>{record.name}</div>
+                        <Tag>{(record.role == 'student' ? 'Học viên' : record.role)}</Tag>
+                    </div>
                 </div>
             ),
         },
@@ -44,28 +51,58 @@ export default function AdminUser() {
             key: 'email',
         },
         {
-            title: 'Vai trò',
-            dataIndex: 'role',
-            key: 'role',
+            title: 'Ngày tham gia',
+            dataIndex: 'created_at',
+            key: 'created_at',
         },
         {
             title: 'Hành động',
             key: 'action',
             render: (text, record) => (
-                <div className='flex gap-2 justify-center'>
-                    <Button shape='circle' icon={<InfoCircleOutlined />} />
-                    <Button shape='circle' icon={<EditOutlined />} type='primary'/>
-                    <Button shape='circle' icon={<DeleteOutlined />} danger/>
-
+                <div className='flex gap-2 items-center justify-start'>
+                    <Button shape='circle' icon={<EditOutlined />} />
+                    <Button shape='circle' icon={<DeleteOutlined />} danger />
                 </div>
             )
         },
     ];
 
+    const [detailOpenModal, setDetailOpenModal] = useState(false);
+
 
     return (
         <div>
-            <h1 className='font-bold text-xl mb-10'>{title}</h1>
+            <h1 className='font-bold text-xl mb-5'>{title}</h1>
+            <div className="flex justify-between item-center gap-5 mb-10">
+                <div
+                    className='bg-blue-600 hover:bg-blue-500 text-white flex flex-col items-center justify-center hover:cursor-pointer   px-3 py-5 rounded-lg w-full text-center'
+                >
+                    <div className='text-3xl mb-3'><PlusCircleOutlined /></div>
+                    <div className='text-sm font-bold '>Thêm mới</div>
+                </div>
+                <div
+                    className='hover:bg-gray-100 hover:cursor-pointer border px-3 py-5 rounded-lg w-full text-center'
+                >
+                    <div className='text-blue-500 text-3xl mb-3'><UserOutlined /></div>
+                    <div className='font-bold text-xl'>831</div>
+                    <div className='text-sm'>Tài khoản</div>
+                </div>
+                <div
+                    className='hover:bg-gray-100 hover:cursor-pointer border px-3 py-5 rounded-lg w-full text-center'
+                >
+                    <div className='text-blue-500 text-3xl mb-3'><UserOutlined /></div>
+                    <div className='font-bold text-xl'>831</div>
+                    <div className='text-sm'>Tài khoản</div>
+                </div>
+                <div
+                    className='hover:bg-gray-100 hover:cursor-pointer border px-3 py-5 rounded-lg w-full text-center'
+                >
+                    <div className='text-blue-500 text-3xl mb-3'><UserOutlined /></div>
+                    <div className='font-bold text-xl'>831</div>
+                    <div className='text-sm'>Tài khoản</div>
+                </div>
+
+            </div>
             <Table
                 dataSource={users.data}
                 bordered
@@ -73,10 +110,46 @@ export default function AdminUser() {
                 columns={columns}
                 rowKey="id"
                 loading={isLoading}
-                pagination="none"
-                title={() => 'Header'}
-                footer={() => 'Footer'}
+                pagination={false}
+
+                title={() =>
+                    <div className='py-3 px-5 flex justify-between items-center'>
+                        <div className='flex gap-1'>
+                            <Input placeholder='Tìm kiếm' prefix={<SearchOutlined />} />
+                            <Button type=''>Mặc định</Button>
+                        </div>
+                        <div className='flex gap-3'>
+                            <Button icon={<FileExcelOutlined />} />
+                            <Button icon={<PrinterOutlined />} />
+                            <Button icon={<CopyOutlined />} />
+                            <Button icon={<FilePdfOutlined />} />
+                        </div>
+                    </div>
+                }
+
+                footer={() =>
+                    <div className='py-2 px-5 text-right'>
+                        <Pagination></Pagination>
+                    </div>
+                }
             />
+
+
+            {/* detail modal */}
+            <Modal
+                title="Chi tiết tài khoản"
+                open={detailOpenModal}
+                onCancel={() => setDetailOpenModal(false)}
+                width={1000}
+                footer
+                centered
+            >
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+            </Modal>
         </div>
+
+
     );
 }

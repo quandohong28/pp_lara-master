@@ -1,4 +1,4 @@
-import { BellOutlined, LogoutOutlined, MessageOutlined, SettingOutlined, UserOutlined, MenuOutlined } from '@ant-design/icons'
+import { BellOutlined, LogoutOutlined, MenuOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons'
 import { Button, Dropdown } from 'antd'
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -7,11 +7,6 @@ import logo from '../../../assets/logo.svg'
 export default function Header() {
     const admin = '/admin'
     const items = [
-        {
-            key: 'profile',
-            icon: <UserOutlined />,
-            label: <Link to={admin + '/profile'}>Trang cá nhân</Link>,
-        },
         {
             key: 'settings',
             icon: <SettingOutlined />,
@@ -31,9 +26,7 @@ export default function Header() {
         <div className='flex items-center justify-between px-10 py-5'>
             <div className='flex items-center gap-5'>
                 <span>
-                    <Button className='flex items-center'>
-                        <MenuOutlined />
-                    </Button>
+                    <Button className='flex items-center' icon={<MenuOutlined />} />
                 </span>
                 <img src={logo} alt="" className='w-[160px]' />
             </div>

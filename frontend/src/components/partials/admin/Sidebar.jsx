@@ -1,4 +1,14 @@
-import { BookOutlined, DashboardOutlined, UserOutlined, SwapOutlined, SignatureOutlined, ProductOutlined, FileOutlined } from '@ant-design/icons';
+import {
+    BookOutlined,
+    DashboardOutlined,
+    UserOutlined,
+    SwapOutlined,
+    SignatureOutlined,
+    ProductOutlined,
+    FileOutlined,
+    NotificationOutlined,
+    ControlOutlined
+} from '@ant-design/icons';
 import { Button, Menu } from 'antd';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -45,9 +55,19 @@ const Sidebar = () => {
             type: 'divider'
         },
         {
+            key: 'notification',
+            label: <Link to="/admin/notification">Thông báo</Link>,
+            icon: <NotificationOutlined />
+        },
+        {
             key: 'file',
             label: <Link to="/admin/file">Quản lý tệp tin</Link>,
             icon: <FileOutlined />
+        },
+        {
+            key: 'other',
+            label: <Link to="/admin/other">Tuỳ chỉnh</Link>,
+            icon: <ControlOutlined />
         },
     ];
 
@@ -58,7 +78,7 @@ const Sidebar = () => {
                     borderRight: 0,
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '1rem',
+                    gap: '8px',
                 }}
                 defaultSelectedKeys={['dashboard']}
                 mode="inline"
@@ -67,6 +87,8 @@ const Sidebar = () => {
                 inlineCollapsed={collapse}
             />
         </div>
+
+
     );
 };
 export default Sidebar;

@@ -1,27 +1,23 @@
-import { Button, Modal } from 'antd';
-import React, { useState } from 'react';
-import logo from '../../assets/favicon.svg';
+import { Button, Modal } from 'antd'
+import React from 'react'
+import logo from '../../assets/logo.svg'
 
-export default function LoginModal(showModal) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+export default function LoginModal({ loginModalOpen, setLoginModalOpen}) {
+    const handleLoginSubmit = () => { }
 
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
-
-    const handleSubmit = () => {
-
-    }
     return (
-        <>
-            <Modal open={isModalOpen} footer onCancel={handleCancel}>
+        <div>
+            <Modal
+                open={loginModalOpen}
+                setModalOpen={setLoginModalOpen}
+                onCancel={() => setLoginModalOpen(false)}
+                footer
+                width={640}
+                title='Đăng nhập'
+            >
                 <div className='p-10'>
                     <div className='modal-header text-center mb-10'>
-                        <img className='mx-auto mb-5' width={48} src={logo} alt={logo} />
+                        <img className='mx-auto mb-5' width={120} src={logo} alt={logo} />
                         <h1 className='text-lg'>Đăng nhập vào hệ thống <span className='font-bold'>Lara Master</span></h1>
                     </div>
                     <div className='form text-center'>
@@ -38,13 +34,13 @@ export default function LoginModal(showModal) {
                                 </div>
                                 <label for="remember" class="ms-2 text-sm text-gray-900 dark:text-gray-300">Nhớ tài khoản</label>
                             </div>
-                            <div className='flex flex-col'>
-                                <Button onSubmit={handleSubmit} className='font-bold'>Đăng nhập</Button>
+                            <div className='mb-5'>
+                                <Button block onSubmit={handleLoginSubmit} className='font-bold'>Đăng nhập</Button>
                             </div>
                         </form>
                     </div>
                 </div>
             </Modal>
-        </>
+        </div>
     )
 }
