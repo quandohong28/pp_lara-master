@@ -11,9 +11,11 @@ import {
 } from '@ant-design/icons';
 import { Menu } from 'antd';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Sidebar = ({ isCollapsed }) => {
+
+    const location = useLocation();
 
     const items = [
         {
@@ -76,6 +78,7 @@ const Sidebar = ({ isCollapsed }) => {
                     gap: '8px',
                 }}
                 defaultSelectedKeys={['dashboard']}
+                selectedKeys={[location.pathname.split('/')[2]]}
                 mode="inline"
                 items={items}
                 className='pt-10 h-full px-4'

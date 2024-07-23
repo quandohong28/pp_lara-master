@@ -1,18 +1,19 @@
 import {
     BellOutlined,
-    SearchOutlined,
     LogoutOutlined,
-    DesktopOutlined,
-    MenuOutlined, MessageOutlined, SettingOutlined
+    MenuOutlined, MessageOutlined,
+    SearchOutlined,
+    SettingOutlined
 } from '@ant-design/icons'
 import { Avatar, Button, Dropdown } from 'antd'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../../assets/logo.svg'
-import Search from 'antd/es/input/Search'
 
 
 export default function Header({ onHandleCollapsed }) {
+    const navigate = useNavigate();
+
     const admin = '/admin'
     const items = [
         {
@@ -36,7 +37,11 @@ export default function Header({ onHandleCollapsed }) {
                 <span>
                     <Button onClick={onHandleCollapsed} className='flex items-center' icon={<MenuOutlined />} />
                 </span>
-                <img src={logo} alt="" className='w-[160px]' />
+                <img
+                onClick={() => navigate('/admin/dashboard')}
+                src={logo}
+                alt="laramaster"
+                className='w-[160px] hover:cursor-pointer' />
             </div>
             <nav>
                 <ul className='flex gap-5 items-center justify-end'>

@@ -10,6 +10,8 @@ import AdminPost from '../components/pages/admin/AdminPost'
 import AdminUser from '../components/pages/admin/AdminUser'
 import Conversation from '../components/pages/admin/Conversation'
 import Dashboard from '../components/pages/admin/Dashboard'
+import AdminCustom from '../components/pages/admin/AdminCustom'
+import Setting from '../components/pages/admin/Setting'
 
 export default function AdminRoute() {
     return (
@@ -23,7 +25,9 @@ export default function AdminRoute() {
             <Route path='/invoice' element={<AdminInvoice />} />
             <Route path='/news' element={<AdminNews />} />
             <Route path='/file' element={<AdminFile />} />
+            <Route path='/custom' element={<AdminCustom />} />
             <Route path='/conversation' element={<Conversation />} />
+            <Route path='/settings' element={<Setting />} />
             <Route path='*' element={<NotFound />} />
         </Routes>
     )

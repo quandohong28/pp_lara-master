@@ -12,7 +12,7 @@ import {
     UserAddOutlined
 } from '@ant-design/icons';
 import { Button, Input, Modal, Pagination, Table, Tag } from 'antd';
-import { React, useEffect, useState } from 'react';
+import { React, act, useEffect, useState } from 'react';
 import ApiService from '../../../services/ApiService';
 
 export default function AdminUser() {
@@ -20,6 +20,33 @@ export default function AdminUser() {
 
     const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+
+    const actionItems = [
+        {
+            key: 'add',
+            title: 'Thêm mới',
+            icon: <UserAddOutlined />,
+            onClick: () => console.log('Thêm mới')
+        },
+        {
+            key: 'permission',
+            title: 'Phân quyền',
+            icon: <ToolOutlined />,
+            onClick: () => console.log('Phân quyền')
+        },
+        {
+            key: 'role',
+            title: 'Cấp bậc',
+            icon: <SmileOutlined />,
+            onClick: () => console.log('Cấp bậc')
+        },
+        {
+            key: 'certificate',
+            title: 'Chứng chỉ',
+            icon: <IdcardOutlined />,
+            onClick: () => console.log('Chứng chỉ')
+        },
+    ];
 
     useEffect(() => {
         ApiService.fetchData('user')
@@ -89,30 +116,15 @@ export default function AdminUser() {
         <div>
             <h1 className='font-bold text-xl mb-10'>{title}</h1>
             <div className="grid grid-cols-12 gap-5 mb-10">
-                <div
-                    className='col-span-3 hover:bg-gray-100 flex flex-col items-center justify-center hover:cursor-pointer border px-3 h-36 rounded-lg w-full text-center'
-                >
-                    <div className='text-blue-500 text-3xl mb-3'><UserAddOutlined /></div>
-                    <div className='text-sm font-bold '>Thêm mới</div>
-                </div>
-                <div
-                    className='col-span-3 hover:bg-gray-100 hover:cursor-pointer flex flex-col items-center justify-center border px-3 h-36 rounded-lg w-full text-center'
-                >
-                    <div className='text-blue-500 text-3xl mb-3'><ToolOutlined /></div>
-                    <div className='text-sm font-bold'>Phân quyền</div>
-                </div>
-                <div
-                    className='col-span-3 hover:bg-gray-100 hover:cursor-pointer flex flex-col items-center justify-center border px-3 h-36 rounded-lg w-full text-center'
-                >
-                    <div className='text-blue-500 text-3xl mb-3'><SmileOutlined /></div>
-                    <div className='text-sm font-bold'>Cấp bậc</div>
-                </div>
-                <div
-                    className='col-span-3 hover:bg-gray-100 hover:cursor-pointer flex flex-col items-center justify-center border px-3 h-36 rounded-lg w-full text-center'
-                >
-                    <div className='text-blue-500 text-3xl mb-3'><IdcardOutlined /></div>
-                    <div className='text-sm font-bold'>Chứng chỉ</div>
-                </div>
+                {actionItems.map(item => (
+                    <div
+                        key={item.key}
+                        className='col-span-3 hover:bg-gray-100 flex flex-col items-center justify-center hover:cursor-pointer border px-3 h-36 rounded-lg w-full text-center'
+                    >
+                        <div className='text-blue-500 text-3xl mb-3'>{item.icon}</div>
+                        <div className='text-sm font-bold'>{item.title}</div>
+                    </div>
+                ))}
 
             </div>
             <div className='border rounded-lg p-1'>

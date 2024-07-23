@@ -26,7 +26,8 @@ export default function Header() {
         {
             title: 'Bài viết',
             icon: <ReadOutlined />,
-            path: '/blog'
+            path: '/blog',
+            notification: 5
         }
     ]
 
@@ -38,7 +39,7 @@ export default function Header() {
 
     return (
         <>
-            <nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+            <nav className="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
                 <div className="grid grid-cols-12 items-center justify-between px-5 py-3">
                     <div className='flex gap-4 items-center col-span-3'>
                         <Link to={'/'} className="flex items-center space-x-3">
@@ -61,13 +62,13 @@ export default function Header() {
                             const isActive = item.path === currentPath;
                             return (
                                 <div key={index}>
-                                    <Badge count={5} offset={[-5, 5]}>
+                                    <Badge count={item.notification} offset={[-5, 5]}>
                                         <Link
                                             to={item.path}
                                             onClick={() => setCurrentPath(item.path)}
                                             className={`flex flex-col gap-1 items-center justify-center w-24 px-3 py-3 rounded-2xl ${isActive ? 'bg-gray-200 text-blue-500' : 'hover:bg-gray-100'}`}
                                         >
-                                            {item.icon}
+                                            <span className='text-lg'>{item.icon}</span>
                                             <span className='xs:hidden sm:hidden md:hidden lg:block text-xs font-bold'>{item.title}</span>
                                         </Link>
                                     </Badge>

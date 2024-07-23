@@ -1,154 +1,64 @@
 import {
-    BarcodeOutlined,
-    CheckOutlined,
-    CopyOutlined,
-    DeleteOutlined,
-    EditOutlined,
-    FileExcelOutlined,
-    FilePdfOutlined,
-    PlusCircleOutlined,
-    PrinterOutlined,
-    SearchOutlined,
-    CommentOutlined,
+    CloudServerOutlined,
     CloudUploadOutlined,
-    RestOutlined,
-    CloudServerOutlined
+    RestOutlined
 } from '@ant-design/icons';
-import { Button, Input, Modal, Pagination, Table, Tag } from 'antd';
-import { React, useEffect, useState } from 'react';
-import ApiService from '../../../services/ApiService';
+import { React } from 'react';
 
 export default function AdminFile() {
-    const title = 'Bài viết';
+    const title = 'Quản lý tệp tin';
 
-    const [users, setUsers] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        ApiService.fetchData('user')
-            .then((data) => {
-                setUsers(data)
-                setIsLoading(false)
-                console.log(data.meta);
-            })
-            .catch(error => console.error(error));
-    }, []);
-
-
-    const columns = [
+    const actionItems = [
         {
-            title: 'ID',
-            dataIndex: 'id',
-            key: 'id',
+            key: 'upload',
+            title: 'Tải lên',
+            icon: <CloudUploadOutlined />,
+            onClick: () => console.log('Tải lên'),
+            value: 3312,
+            col: 3
         },
         {
-            title: 'Họ tên',
-            dataIndex: 'name',
-            key: 'name',
-            render: (text, record) => (
-                <div className='flex gap-3 items-center justify-start'>
-                    <img className='w-[44px] h-[44px] rounded-full' src={record.avatar} />
-                    <div className='font-bold'>
-                        <div className='mb-1 hover:cursor-pointer text-blue-700' onClick={() => setDetailOpenModal(true)}>{record.name}</div>
-                        <Tag>{(record.role == 'student' ? 'Học viên' : record.role)}</Tag>
-                    </div>
-                </div>
-            ),
+            key: 'trash',
+            title: 'Thùng rác',
+            icon: <RestOutlined />,
+            onClick: () => console.log('Thùng rác'),
+            value: 0,
+            col: 3
         },
         {
-            title: 'Email',
-            dataIndex: 'email',
-            key: 'email',
+            key: 'server',
+            title: 'Máy chủ kết nối',
+            icon: <CloudServerOutlined />,
+            onClick: () => console.log('Máy chủ kết nối'),
+            col: 3
         },
-        {
-            title: 'Ngày tham gia',
-            dataIndex: 'created_at',
-            key: 'created_at',
-        },
-        {
-            title: 'Hành động',
-            key: 'action',
-            render: (text, record) => (
-                <div className='flex gap-2 items-center justify-start'>
-                    <Button shape='circle' icon={<EditOutlined />} />
-                    <Button shape='circle' icon={<DeleteOutlined />} danger />
-                </div>
-            )
-        },
-    ];
+    ]
 
-    const [detailOpenModal, setDetailOpenModal] = useState(false);
 
 
     return (
         <div>
             <h1 className='font-bold text-xl mb-10'>{title}</h1>
             <div className="grid grid-cols-12 gap-5 mb-10">
-                <div
-                    className='col-span-3 hover:bg-gray-100 flex flex-col items-center justify-center hover:cursor-pointer border px-3 h-36 rounded-lg w-full text-center'
-                >
-                    <div className='text-blue-500 text-3xl mb-3'><CloudUploadOutlined /></div>
-                    <div className='text-sm font-bold '>Tải lên</div>
-                </div>
-                <div
-                    className='col-span-3 hover:bg-gray-100 hover:cursor-pointer flex flex-col items-center justify-center border px-3 h-36 rounded-lg w-full text-center'
-                >
-                    <div className='text-blue-500 text-3xl mb-3'><RestOutlined /></div>
-                    <div className='text-sm font-bold'>Thùng rác</div>
-                </div>
-                <div
-                    className='col-span-3 hover:bg-gray-100 hover:cursor-pointer flex flex-col items-center justify-center border px-3 h-36 rounded-lg w-full text-center'
-                >
-                    <div className='text-blue-500 text-3xl mb-3'><CloudServerOutlined /></div>
-                    <div className='text-sm font-bold'>Máy chủ kết nối</div>
-                </div>
+                {actionItems.map(item => (
+                    <div
+                        key={item.key}
+                        className={`col-span-${item.col} hover:bg-gray-100 flex flex-col items-center justify-center hover:cursor-pointer border px-3 h-36 rounded-lg w-full text-center`}
+                        onClick={item.onClick}
+                    >
+                        <div className='text-blue-500 text-3xl mb-3'>{item.icon}</div>
+                        <div className='text-sm font-bold '>{item.title}</div>
+                        {item.key !== 'server' && (
+                            <p className='text-xs italic text-gray-500'>{item.value} tệp</p>
+                        )}
+                    </div>
+                ))}
 
             </div>
-            <Table
-                dataSource={users.data}
-                bordered
-                size='small'
-                columns={columns}
-                rowKey="id"
-                loading={isLoading}
-                pagination={false}
 
-                title={() =>
-                    <div className='py-3 px-5 flex justify-between items-center'>
-                        <div className='flex gap-1'>
-                            <Input placeholder='Tìm kiếm' prefix={<SearchOutlined />} />
-                            <Button type=''>Mặc định</Button>
-                        </div>
-                        <div className='flex gap-3'>
-                            <Button icon={<FileExcelOutlined />} />
-                            <Button icon={<PrinterOutlined />} />
-                            <Button icon={<CopyOutlined />} />
-                            <Button icon={<FilePdfOutlined />} />
-                        </div>
-                    </div>
-                }
-
-                footer={() =>
-                    <div className='py-2 px-5 text-right'>
-                        <Pagination></Pagination>
-                    </div>
-                }
-            />
-
-
-            {/* detail modal */}
-            <Modal
-                title="Chi tiết tài khoản"
-                open={detailOpenModal}
-                onCancel={() => setDetailOpenModal(false)}
-                width={1000}
-                footer
-                centered
-            >
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-            </Modal>
+            <div className="mb-10 border rounded p-5">
+                
+            </div>
         </div>
 
 
